@@ -5,9 +5,12 @@
   "main": "dist/main/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && electron-builder",
-    "preview": "vite preview"
+    "build": "tsc && vite build && mkdir -p dist/main && cp electron/main.ts dist/main/index.js && electron-builder"
   },
+  "files": [
+    "dist/**",
+    "src/**"
+  ],
   "dependencies": {
     "lucide-react": "^0.330.0",
     "react": "^18.2.0",
@@ -23,6 +26,16 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
-    "vite": "^8.0.16"
+    "vite": "6.4.3"
+  },
+  "build": {
+    "appId": "com.example.imapp",
+    "mac": {
+      "target": "dmg"
+    },
+    "files": [
+      "dist/**",
+      "src/**"
+    ]
   }
 }
