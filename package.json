@@ -33,6 +33,8 @@
   },
   "build": {
     "appId": "com.example.imapp",
+    "productName": "im-desktop-app",
+    "copyright": "Copyright © 2024 liuxx",
     "mac": {
       "target": "dmg"
     },
@@ -50,8 +52,7 @@
       "allowToChangeInstallationDir": true,
       "createDesktopShortcut": true,
       "installerIcon": "build/icon.ico",
-      "uninstallerIcon": "build/icon.ico",
-      "installLocation": null
+      "uninstallerIcon": "build/icon.ico"
     },
     "files": [
       "dist/**",
