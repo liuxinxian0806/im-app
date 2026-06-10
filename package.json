@@ -35,9 +35,6 @@
     "appId": "com.example.imapp",
     "productName": "im-desktop-app",
     "copyright": "Copyright © 2024 liuxx",
-    "mac": {
-      "target": "dmg"
-    },
     "win": {
       "target": [
         {
@@ -46,13 +43,6 @@
         }
       ],
       "icon": "build/icon.ico"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDir": true,
-      "createDesktopShortcut": true,
-      "installerIcon": "build/icon.ico",
-      "uninstallerIcon": "build/icon.ico"
     },
     "files": [
       "dist/**",
