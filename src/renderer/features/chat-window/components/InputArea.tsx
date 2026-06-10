@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Smile, Paperclip, Mic, Send } from "lucide-react";
-import { useChatStore } from "../../../store/useChatStore"; "../../../../../store/useChatStore";
+import { useChatStore } from "../../../store/useChatStore";
 
 const InputArea: React.FC = () => {
   const [inputText, setInputText] = useState("");
@@ -30,10 +30,17 @@ const InputArea: React.FC = () => {
 
   useEffect(() => {
     if (textareaRef.current) {
+      textarea_height = textareaRef.current.scrollHeight;
       textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+      textareaRef.current.style.height = textarea_height + "px";
     }
   }, [inputText]);
+
+  // Helper for type safety in the template
+  const get_height = () => {
+     if (textareaRef.current) return textareaRef.current.scrollHeight;
+     return 0;
+  };
 
   return (
     <div className="p-4 bg-white border-t border-slate-200">
@@ -47,12 +54,12 @@ const InputArea: React.FC = () => {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Type a message..."
+            placeholder="输入消息..."
             className="w-full resize-none bg-slate-100 border-none rounded-2xl py-3 px-4 pr-12 text-sm focus:ring-2 focus:ring-blue-500 outline-none max-h-32 overflow-y-auto"
           />
         </div>
         <div className="flex items-center gap-2">
-          <button type="button" className="text-slate-500 hover:text-blue-500 transition-colors p-1"><Mic size={24} /></button>
+          <button type="button" className="text-slate-50  hover:text-blue-500 transition-colors p-1"><Mic size={24} /></button>
           <button 
             onClick={handleSendMessage}
             disabled={!inputText.trim()}

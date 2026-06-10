@@ -2,10 +2,10 @@ import React from 'react';
 import { useChatStore } from '../../../store/useChatStore';
 
 const subModules = [
-  { id: 'account', label: 'Account' },
-  { id: 'privacy', label: 					'Privacy' },
-  { id: 'security', label: 'Security' },
-  { id: 'notifications', label: 'Notifications' },
+  { id: 'account', label: '账号' },
+  { id: 'privacy', label: '隐私' },
+  { id: 'security', label: '安全' },
+  { id: 'notifications', label: '通知' },
 ] as const;
 
 const ProfileSubNav: React.FC = () => {
