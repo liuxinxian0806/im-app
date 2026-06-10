@@ -38,17 +38,25 @@
     },
     "win": {
       "target": [
-        "nsis"
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
       ],
       "icon": "build/icon.ico"
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDir": true
+      "allowToChangeInstallationDir": true,
+      "createDesktopShortcut": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installLocation": null
     },
     "files": [
       "dist/**",
       "src/**"
     ]
-  }
+  },
+  "author": "liuxx"
 }
