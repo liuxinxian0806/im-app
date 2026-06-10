@@ -6,8 +6,12 @@ const NavigationSidebar: React.FC = () => {
   const { setView } = useChatStore();
 
   const navItems = [
-    { icon: <User size={24} />, label: 'Profile', id: 'profile' },
-    { icon: <Users size={24} />, label: 'Contacts', id: 'contacts' },
+    { icon: <User size={24} />, label: 'Profile', id: 'profile', view: 'profile' as const },
+    { icon: 
+      <Users size={24} />, 
+      label: 'Contacts', 
+      id: 'contacts' 
+    },
     { icon: <MessageSquare size={24} />, label: 'Chats', id: 'chats', view: 'chats' as const },
     { icon: <Folder size={24} />, label: 'Files', id: 'files' },
     { icon: <Settings size={24} />, label: 'Settings', id: 'settings', view: 'settings' as const },
