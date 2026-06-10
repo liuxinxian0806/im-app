@@ -30,23 +30,21 @@ const InputArea: React.FC = () => {
 
   useEffect(() => {
     if (textareaRef.current) {
-      textarea_height = textareaRef.current.scrollHeight;
+      const textareaHeight = textareaRef.current.scrollHeight;
       textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = textarea_height + "px";
+      textareaRef.current.style.height = `${textareaHeight}px`;
     }
   }, [inputText]);
-
-  // Helper for type safety in the template
-  const get_height = () => {
-     if (textareaRef.current) return textareaRef.current.scrollHeight;
-     return 0;
-  };
 
   return (
     <div className="p-4 bg-white border-t border-slate-200">
       <div className="flex items-end gap-3">
-        <button type="button" className="text-slate-500 hover:text-blue-500 transition-colors p-1"><Smile size={24} /></button>
-        <button type="button" className="text-slate-500 hover:text-blue-500 transition-colors p-1"><Paperclip size={24} /></button>
+        <button type="button" className="text-slate-500 hover:text-blue-500 transition-colors p-1">
+          <Smile size={24} />
+        </button>
+        <button type="button" className="text-slate-500 hover:text-blue-500 transition-colors p-1">
+          <Paperclip size={24} />
+        </button>
         <div className="flex-grow relative">
           <textarea
             ref={textareaRef}
@@ -59,7 +57,9 @@ const InputArea: React.FC = () => {
           />
         </div>
         <div className="flex items-center gap-2">
-          <button type="button" className="text-slate-50  hover:text-blue-500 transition-colors p-1"><Mic size={24} /></button>
+          <button type="button" className="text-slate-500 hover:text-blue-500 transition-colors p-1">
+            <Mic size={24} />
+          </button>
           <button 
             onClick={handleSendMessage}
             disabled={!inputText.trim()}
