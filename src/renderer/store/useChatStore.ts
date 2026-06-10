@@ -12,7 +12,7 @@ interface ChatState {
   currentView: AppView;
   activeSubModule: ProfileSubModule; // Added
   currentUserId: string;
-  setActiveConversationlyId: (id: string) => void; // Wait, typo in function name? Let me fix it.
+  setActiveConversationId: (id: string) => void; // Wait, typo in function name? Let me fix it.
   setView: (view: AppView) => void;
   setSubModule: (module: ProfileSubModule) => void; // Added
   addMessage: (conversationId: string, message: Omit<Message, 'id'>) => void;
