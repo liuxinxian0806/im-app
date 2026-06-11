@@ -1,25 +1,77 @@
 import React from 'react';
 
-const ProfileInfoList: React.FC = () => {
-  const info = [
-    { label: '电子邮件', value: 'john.doe@example.com' },
-    { label: '电话', value: '+86 138 0000 0000' },
-    { label: '位置', value: '中国, 上海' },
-    { label: '个人简介', value: '正在构建未来桌面通信应用。' },
-  ];
+interface InfoRowProps {
+  label: string;
+  value: React.Reactable;
+  onEdit?: () => void;
+}
 
+const InfoRow: React.FC<InfoRowProps> = ({ label, value, onEdit }) => (
+  <div 
+    className={`flex items-center justify-between py-4 px-2 border-b border-slate-50 hover:bg-slate-50/50 transition-colors ${onEdit ? 'cursor-pointer group' : ''}`}
+    onClick={onEdit}
+  >
+    <span className="text-slate-500 text-sm font-medium">{label}</span>
+    <div className="flex items-center gap-2 text-slate-900 text-base">
+      {value}
+      {onEdit && <span className="opacity-0 group:hover:opacity-100 text-blue-500 text-xs transition-opacity">编辑</span>}
+    </div>
+  </div>
+);
+
+interface ProfileInfoListProps {
+  user: {
+    avatarUrl: string;
+    nickname: string;
+    bibiId: string;
+    gender: string;
+    region: string;
+    signature: string;
+  };
+}
+
+const ProfileInfoList: React.FC<ProfileInfoListProps> = ({ user }) => {
   return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-slate-800">个人信息</h2>
-      <div className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm">
-        <div className="divide-y divide-slate-100">
-          {info.map((item) => (
-            <div key={item.label} className="flex items-center p-4 hover:bg-slate-50 transition-colors">
-              <span className="w-32 text-sm font-medium text-slate-50 0">{item.label}</span>
-              <span className="text-sm text-slate-900 flex-grow truncate">{item.value}</span>
+    <div className="space-y-4">
+      {/* Group 1: Identity/Avatar Information */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+        <InfoRow 
+          label="头像" 
+          value={
+            <div className="flex items-center gap-2 group/item cursor-pointer" onClick={() => console.log('Change Avatar')}>
+              <img src={user.avatarUrl} className="w-10 h-10 rounded-md object-cover border border-slate-200" />
+              <span className="text-xs text-blue-500 opacity-0 group-hover/item:opacity-100 transition-opacity">更换</span>
             </div>
-          ))}
-        </div>
+          } 
+        />
+        <InfoRow 
+          label="昵称" 
+          value={<span className="font-medium">{user.nickname}</span>} 
+          onEdit={() => console.log('Edit Nickname')}
+        />
+        <InfoRow 
+          label="BIBI号" 
+          value={<span className="text-blue-600 font-medium">{user.bibiId}</span>} 
+        />
+      </div>
+
+      {/* Group 2: Personal Details */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+        <InfoRow 
+          label="性别" 
+          value={<span className="text-slate-400">{user.gender || '请选择'}</span>} 
+          onEdit={() => console.log('Edit Gender')}
+        />
+        <InfoRow 
+          label="地区" 
+          value={<span className="text-slate-400">{user.region || '请选择'}</span>} 
+          onEdit={() => console.log('Edit Region')}
+        />
+        <InfoRow 
+          label="个性签名" 
+          value={<span className="text-slate-400 truncate max-w-[200px]">{user.signature || '暂无'}</span>} 
+          onEdit={() => console.log('Edit Signature')}
+        />
       </div>
     </div>
   );
