@@ -11,18 +11,22 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
+    # We use the root of the repo as the base for setup-node's cache lookup.
+    # But we use working-directory for the actual execution steps to enter im-app.
 
     steps:
       # 1. 拉取代码 (Standard checkout)
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 设置 Node.js (Let setup-node use its default lookup logic)
+      # 2. 设置 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
+          # This is the critical fix: pointing to the path relative to repo root
+          cache-dependency-path: im-app/package-lock.json
 
       # 3. 安装依赖 (Explicitly enter im-app)
       - name: Install dependencies
