@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "description": "A high-performance, cross-platform Desktop IM application.",
-  "main": "dist/main/index.js",
+  "main": "dist/main/index.cjs",
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && tsc && vite build && shx mkdir -p dist/main && esbuild electron/main.ts --bundle --platform=node --external:electron --format=cjs --outfile=dist/main/index.js && shx cp electron/preload.js dist/main/preload.js && electron-builder"
+    "build": "rm -rf dist && tsc && vite build && shx mkdir -p dist/main && esbuild electron/main.ts --bundle --platform=node --external:electron --format=cjs --outfile=dist/main/index.cjs && shx cp electron/preload.js dist/main/preload.js && electron-builder"
   },
   "files": [
     "dist/**"

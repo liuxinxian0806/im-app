@@ -6,17 +6,16 @@ function createWindow() {
     width: 1200,
     height: 800,
     webPreferences: {
-      // Since __dirname is dist/main, preload.js should be in dist/main/preload.js
+      // Since we are in dist/main, preload.js should be at the same level
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true
     },
   });
 
-  // The build process places the renderer at dist/renderer/index.html
-  // Since __dirname is dist/main, we go up one level to dist/ and then into renderer/
+  // Looking for index.html in dist/renderer/index.html
+  // From dist/main, we go up one level to dist, then into renderer
   const indexPath = path.join(__dirname, '../renderer/index.html');
-  
   mainWindow.loadFile(indexPath);
 }
 
