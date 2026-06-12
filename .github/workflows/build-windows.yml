@@ -11,37 +11,35 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: im-app
 
     steps:
-      # 1. 拉取代码 (Checkout 后的根目录是仓库的根)
+      # 1. 拉取代码 (Standard checkout)
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 设置 Node.js
+      # 2. 设置 Node.js (Let setup-node use its default lookup logic)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
-          # 使用相对于仓库根目录的路径指向 lock 文件，因为 setup-node 运行环境是在仓库根部
-          cache-dependency-path: im-app/package-lock.json
 
-      # 3. 安装依赖 (已经在 im-app 目录下，使用 working-directory 确保上下文一致)
+      # 3. 安装依赖 (Explicitly enter im-app)
       - name: Install dependencies
         run: npm ci
+        working-directory: im-app
 
-      # 4. 执行应用构建
+      # 4. 执行应用构建 (Explicitly enter im-app)
       - name: Build App Assets
         run: npm run build:app
+        working-directory: im-app
 
-      # 5. 执行真正的 Electron 打包
+      # 5. 执行真正的 Electron 打包 (Explicitly enter im-app)
       - name: Package Electron App
         run: npm run package
+        working-directory: im-app
 
-      # 6. 上传成品 (必须从仓库根目录视角查找)
+      # 6. 上传成品 (Path relative to repo root)
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
