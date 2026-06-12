@@ -24,20 +24,22 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      # 3. 安装依赖
+      # 3. 安装依赖 (在项目根目录下执行)
       - name: Install dependencies
         run: npm ci
+        working-directory: im-app
 
-      # 4. 【核心修复】执行应用构建 (包含编译和拷贝)
+      # 4. 执行应用构建 (使用 root 下的相对路径)
       - name: Build App Assets
         run: npm run build:app
+        working-directory: im-app
 
       # 5. 执行真正的 Electron 打包
       - name: Package Electron App
         run: npm run package
         working-directory: im-app
 
-      # 6. 上传成品
+      # 6. 上传成品 (使用根目录下的绝对路径引用)
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
