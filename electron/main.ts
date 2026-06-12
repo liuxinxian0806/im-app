@@ -2,32 +2,32 @@ import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 
 function createWindow() {
-  const win = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     webPreferences: {
+      // Since __dirname is dist/main, preload.js should be in dist/main/preload.js
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false,
+      contextIsolation: true
     },
   });
 
-  // In development, we load the Vite dev server
-  if (process.env.VITE_DEV_SERVER_URL) {
-    win.loadURL(process.env.VITE_DEV_SERVER_URL);
-  } else {
-    win.loadFile(path.join(__dirname, '../dist/renderer/index.html'));
-  }
+  // The build process places the renderer at dist/renderer/index.html
+  // Since __dirname is dist/main, we go up one level to dist/ and then into renderer/
+  const indexPath = path.join(__dirname, '../renderer/index.html');
+  
+  mainWindow.loadFile(indexPath);
 }
 
 app.whenReady().then(() => {
   createWindow();
-
-  app.on('activate', () => {
+  
+  app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
 
-app.on('window-all-closed', () => {
+app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });

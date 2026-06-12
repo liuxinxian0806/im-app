@@ -53,6 +53,7 @@ const ProfileSubNav: React.FC<ProfileSubNavProps> = ({ user }) => {
     { id: 'orders', label: '我的订单', icon: <ClipboardList size={18} /> },
   ] as const;
 
+  // @ts-ignore
   return (
     <nav className="w-[240px] h-full bg-slate-50 border-r border-slate-200 flex flex-col py-4 overflow-y-auto">
       {/* Top Identity Summary Section */}

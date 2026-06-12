@@ -1,4 +1,4 @@
-export type ProfileSubModule = 'account' | 'privacy' | 'security' | 'notifications';
+export type ProfileSubModule = 'account' | 'privacy' | 'security' | 'notifications' | 'business-card' | 'card-int' | 'cargo' | 'recruitment' | 'orders';
 
 export interface UserProfile {
   id: string;

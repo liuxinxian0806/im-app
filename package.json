@@ -1,16 +1,15 @@
 {
   "name": "im-desktop-app",
   "version": "1.0.0",
+  "type": "module",
   "description": "A high-performance, cross-platform Desktop IM application.",
-  "main": "dist/main/index.js",
+  "main": "dist/main/index.cjs",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && shx mkdir -p dist/main && shx cp electron/main.ts dist/main/index.js && electron-builder",
-    "postinstall": "electron-builder install-app-deps"
+    "build": "rm -rf dist && tsc && vite build && shx mkdir -p dist/main && esbuild electron/main.ts --bundle --platform=node --external:electron --outfile=dist/main/index.cjs && shx cp electron/preload.js dist/main/preload.js && electron-builder"
   },
   "files": [
-    "dist/**",
-    "src/**"
+    "dist/**"
   ],
   "dependencies": {
     "lucide-react": "^0.330.0",
@@ -44,9 +43,11 @@
       ],
       "icon": "build/icon.ico"
     },
+    "mac": {
+      "target": "dmg"
+    },
     "files": [
-      "dist/**",
-      "src/**"
+      "dist/**"
     ]
   },
   "author": "liuxx"

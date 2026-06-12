@@ -1,20 +1,40 @@
 import { create } from 'zustand';
-import { Conversation, Message } from '../types/chat';
+import { Conversation, Message }	from '../types/chat';
 import { DUMMY_CONVERSATIONS } from '../utils/dummyData';
 
-export type AppView = 'chats' | 'settings' | 'profile';
-export type ProfileSubModule = 'account' | 'privacy' | 'security' | 'notifications';
+export type AppView = 
+  | 'chats' 
+  | 'settings' 
+  | 'profile'
+  | 'my-wallet'
+  | 'my-business-card'
+  | 'my-card-folder'
+  | 'my-favorites'
+  | 'my-cargo'
+  | 'my-recruitment'
+  | 'my-orders';
+
+export type ProfileSubModule = 
+  | 'account' 
+  | 'privacy' 
+  | 'security' 
+  | 'notifications'
+  | 'business-card'
+  | 'card-int'
+  | 'cargo'
+  | 'recruitment'
+  | 'orders';
 
 interface ChatState {
   conversations: Conversation[];
   messages: Record<string, Message[]>;
   activeConversationId: string | null;
   currentView: AppView;
-  activeSubModule: ProfileSubModule; // Added
+  activeSubModule: ProfileSubModule;
   currentUserId: string;
-  setActiveConversationId: (id: string) => void; // Wait, typo in function name? Let me fix it.
+  setActiveConversationId: (id: string) => void;
   setView: (view: AppView) => void;
-  setSubModule: (module: ProfileSubModule) => void; // Added
+  setSubModule: (module: ProfileSubModule) => void;
   addMessage: (conversationId: string, message: Omit<Message, 'id'>) => void;
 }
 
@@ -36,13 +56,13 @@ const initialMessages: Record<string, Message[]> = {
 export const useChatStore = create<ChatState>((set) => ({
   conversations: DUMMY_CONVERSATIONS,
   messages: initialMessages,
-  activeConversationId: DUMMY_CONVERSATIONS[0].id,
+  activeConversationId: DUMMY_CONVERSATIONS[0]?.id || null,
   currentView: 'chats',
-  activeSubModule: 'account', // Default sub-module
+  activeSubModule: 'account',
   currentUserId: CURRENT_USER_ID,
   setActiveConversationId: (id) => set({ activeConversationId: id }),
-  setView: (view) => set({ currentView: view }),
-  setSubModule: (module) => set({ activeSubModule: module }), // Implementation
+  setView: (view) => set({ currentView: view as AppView }),
+  setSubModule: (module) => set({ activeSubModule: module as ProfileSubModule }),
   addMessage: (conversationId, messageData) => 
     set((state) => ({
       messages: {

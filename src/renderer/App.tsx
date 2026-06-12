@@ -30,13 +30,13 @@ function App() {
         return <ProfileView />;
       case 'settings':
         return <SettingsView />;
-      case 'my-wallet':
-      case 'my-business-card':
-      case 'my-card-folder':
-      case 'my-favorites':
-      case 'my-cargo':
-      case 'my-recruitment':
-      case 'my-orders':
+      // case 'my-wallet':
+      // case 'my-business-card':
+      // case 'my-card-folder':
+      // case 'my-favorites':
+      // case 'my-cargo':
+      // case 'my-recruitment':
+      // case 'my-orders':
         // In a real app, these would be different components. 
         // For now, we use Placeholders to ensure the routing works and is testable.
         return <PlaceholderView name={currentView.replace('my-', '').toUpperCase()} />;

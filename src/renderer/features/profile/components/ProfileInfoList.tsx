@@ -2,7 +2,7 @@ import React from 'react';
 
 interface InfoRowProps {
   label: string;
-  value: React.Reactable;
+  value: React.ReactNode;
   onEdit?: () => void;
 }
 
