@@ -28,27 +28,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4. 【重构点】只进行前端构建 (仅仅编译 Vite，不触发 electron-builder)
-      # 注意：你需要检查你的 package.json，确保有一个专门的脚本只做 vite build
-      # 如果没有，我们可以直接调用 npx vite build
-      - name: Build Frontend Only
-        run: npx vite build
+      # 4. 【核心修复】执行应用构建 (包含编译和拷贝)
+      - name: Build App Assets
+        run: npm run build:app
 
-      # 5. 【重构点】手动处理文件拷贝 (这是你之前构建脚本中的重要环节)
-      # 我们需要把 main.ts 放到 dist/main 目录下，否则打包会失败
-      - name: Prepare Electron Main File
-        shell: pwsh  # 在 Windows 上使用 PowerShell 执行
-        run: |
-          mkdir -p dist/main
-          cp electron/main.ts dist/main/index.js
+      # 5. 执行真正的 Electron 打包
+      - name: Package Electron App
+        run: npm run package
+        working-directory: im-app
 
-      # 6. 执行真正的 Electron 打包 (使用 --no-publish)
-      - name: Build Electron App
-        run: npx electron-builder --win --ia32 --publish never
-
-      # 7. 上传成品
+      # 6. 上传成品
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Electron-Windows-Installer
-          path: dist/*.exe
+          path: im-app/dist/*.exe
