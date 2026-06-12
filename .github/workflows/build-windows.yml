@@ -11,9 +11,12 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: im-app
 
     steps:
-      # 1. 拉取代码 (Checkout 后的根目录是仓库的根)
+      # 1. 拉取代码
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -23,25 +26,21 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
-          # 使用相对于仓库根目录的路径指向 lock 文件
           cache-dependency-path: im-app/package-lock.json
 
-      # 3. 安装依赖 (进入 im-app 目录执行)
+      # 3. 安装依赖
       - name: Install dependencies
         run: npm ci
-        working-directory: im-app
 
-      # 4. 执行应用构建 (进入 im-app 目录执行)
+      # 4. 执行应用构建
       - name: Build App Assets
         run: npm run build:app
-        working-directory: im-app
 
-      # 5. 执行真正的 Electron 打包 (进入 im-app 落地)
+      # 5. 执行真正的 Electron 打包
       - name: Package Electron App
         run: npm run package
-        working-directory: im-app
 
-      # 6. 上传成品 (相对于仓库根目录的路径)
+      # 6. 上传成品
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
