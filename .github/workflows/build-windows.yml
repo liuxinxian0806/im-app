@@ -13,33 +13,34 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # 1. 拉取代码
+      # 1. 拉取代码 (Standard checkout)
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 设置 Node.js (使用 v22)
+      # 2. 设置 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
+          cache-dependency-path: im-app/package-lock.json
 
-      # 3. 安装依赖 (在项目根目录下执行)
+      # 3. 安装依赖 (Explicitly enter the directory)
       - name: Install dependencies
         run: npm ci
         working-directory: im-app
 
-      # 4. 执行应用构建 (使用 root 下的相对路径)
+      # 4. 执行应用构建 (Explicitly enter the directory)
       - name: Build App Assets
         run: npm run build:app
         working-directory: im-app
 
-      # 5. 执行真正的 Electron 打包
+      # 5. 执行真正的 Electron 打包 (Explicitly enter the directory)
       - name: Package Electron App
         run: npm run package
         working-directory: im-app
 
-      # 6. 上传成品 (使用根目录下的绝对路径引用)
+      # 6. 上传成品 (Using relative path from root)
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
