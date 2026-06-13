@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build:app": "rm -rf dist && tsc && vite build && shx mkdir -p dist/main && esbuild electron/main.ts --bundle --platform=node --external:electron --format=cjs --outfile=dist/main/index.cjs && shx cp electron/preload.js dist/main/preload.js",
-    "package": "electron-builder"
+    "package": "electron-builder --publish never"
   },
   "files": [
     "dist/**"
