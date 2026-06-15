@@ -1,20 +1,17 @@
-import React from 'react';
-import { User, Users, MessageSquare, Folder, Settings } from 'lucide-react';
-import { useChatStore } from '../../store/useChatStore';
+import React from "react";
+import { User, Users, MessageSquare, Folder, Settings, LogIn } from "lucide-react";
+import { useChatStore } from "../../store/useChatStore";
 
 const NavigationSidebar: React.FC = () => {
   const { setView } = useChatStore();
 
   const navItems = [
-    { icon: <User size={24} />, label: 'Profile', id: 'profile', view: 'profile' as const },
-    { icon: 
-      <Users size={24} />, 
-      label: 'Contacts', 
-      id: 'contacts' 
-    },
-    { icon: <MessageSquare size={24} />, label: 'Chats', id: 'chats', view: 'chats' as const },
-    { icon: <Folder size={24} />, label: 'Files', id: 'files' },
-    { icon: <Settings size={24} />, label: 'Settings', id: 'settings', view: 'settings' as const },
+    { icon: <User size={24} />, label: "Profile", id: "profile", view: "profile" as const },
+    { icon: <Users size={24} />, label: "Contacts", id: "contacts" },
+    { icon: <MessageSquare size={24} />, label: "Chats", id: "chats", view: "chats" as const },
+    { icon: <Folder size={24} />, label: "Files", id: "files" },
+    { icon: <Settings size={24} />, label: "Settings", id: "settings", view: "settings" as const },
+    { icon: <LogIn size={24} />, label: "Login", id: "login_entry", view: "login" as const },
   ];
 
   return (
@@ -22,7 +19,7 @@ const NavigationSidebar: React.FC = () => {
       {navItems.map((item) => (
         <button
           key={item.id}
-          onClick={() => item.view && setView(item.view)}
+          onClick={() => item.view && setView(item.view as any)}
           className="p-2 rounded-lg transition-colors hover:bg-slate-800 hover:text-white"
           title={item.label}
         >

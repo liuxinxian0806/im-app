@@ -1,11 +1,23 @@
 import React from 'react';
-import { User, Settings, Bell, Shield, Lock } from 'lucide-react';
+import { User, Settings, Bell, Shield, Lock, LogOut } from 'lucide-react';
+import { useAuthStore } from '../../store/useAuthStore';
+import { useChatStore } from '../../store/useChatStore';
 
 const SettingsView: React.FC = () => {
+  const { logout } = useAuthStore();
+  const { setView } = useChatStore();
+
+  const handleLogout = () => {
+    if (window.confirm('您确定要退出登录吗？')) {
+      logout();
+      setView('login');
+    }
+  };
+
   return (
     <div className="flex h-full bg-white">
-      {/* 侧边导航 */}
-      <div className="w-[200px] h-full bg-slate-50 border-r border-slate-200 p-4 space-y-2">
+      {/* 侧边栏 */}
+      <div className="w-[200px] h-full bg-slate-50 border-r border-slate-200 p-4 space-space-y-2">
         <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 px-4">设置</div>
         <button className="w-full text-left px-4 py-2 rounded-lg text-sm transition-colors bg-blue-50 text-blue-600 font-medium flex items-center gap-3">
           <User size={18} /> 账号
@@ -22,6 +34,15 @@ const SettingsView: React.FC = () => {
         <button className="w-full text-left px-4 py-2 rounded-lg text-sm transition-colors text-slate-600 hover:bg-slate-100 flex items-center gap-3">
           <Lock size={18} /> 安全
         </button>
+
+        <div className="pt-4 mt-4 border-t border-slate-200">
+          <button 
+            onClick={handleLogout}
+            className="w-full text-left px-4 py-2 rounded-lg text-sm transition-colors text-red-600 hover:bg-red-50 flex items-center gap-3"
+          >
+            <LogOut size={18} /> 退出登录
+          </button>
+        </div>
       </div>
 
       {/* 内容区域 */}
@@ -37,7 +58,7 @@ const SettingsView: React.FC = () => {
                   type="email" 
                   readOnly 
                   value="john.doe@example.com" 
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none cursor-not-allowed" 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none cursor-not-allowed"
                 />
               </div>
               <div className="space-y-1">
@@ -46,7 +67,7 @@ const SettingsView: React.FC = () => {
                   type="text" 
                   readOnly 
                   value="John Doe" 
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none cursor-not-allowed" 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none cursor-not-allowed"
                 />
               </div>
             </div>

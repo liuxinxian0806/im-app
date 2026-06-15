@@ -12,7 +12,7 @@ export type AppView =
   | 'my-favorites'
   | 'my-cargo'
   | 'my-recruitment'
-  | 'my-orders';
+  | 'my-orders' | 'login';
 
 export type ProfileSubModule = 
   | 'account' 
